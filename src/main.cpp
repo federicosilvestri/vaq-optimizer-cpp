@@ -175,27 +175,17 @@ int main(int argc, char *argv[]) {
     }
 
     std::cout << "glp objective value: " << glp_mip_obj_val(lp) << std::endl;
-
-
-    // Popolare l'oggetto JSON con dati
     json out_data;
     auto out_vec = vector<int>();
     for (auto i = 1; i <= glp_cols; i++) {
         out_vec.push_back(glp_mip_col_val(lp, i));
     }
+    
     out_data["bit_alloc"] = out_vec;
-
-    // Aprire un file JSON per la scrittura
     std::ofstream out_file(argv[1]);
-    out_file << out_data.dump(4); // Usa il metodo dump per convertire l'oggetto JSON in una stringa formattata
-
-    // Chiudere il file
+    out_file << out_data.dump(4);
     out_file.close();
-
-    std::cout << "File JSON scritto con successo" << std::endl;
-
-
-    // done
+    
     return 0;
 }
 
